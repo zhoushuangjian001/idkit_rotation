@@ -1,7 +1,9 @@
 library idkit_rotation;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:ui';
+
+part 'src/rotation_gesturedector.dart';
+part 'src/rotation_pagecontrol.dart';
+part 'src/rotation.dart';
