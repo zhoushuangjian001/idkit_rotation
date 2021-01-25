@@ -6,6 +6,7 @@ class IDKitPageControl extends StatefulWidget {
     this.count,
     this.selectIndex,
     this.pageSize,
+    this.activitePageSize,
     this.color,
     this.activiteColor,
     this.shape,
@@ -13,7 +14,8 @@ class IDKitPageControl extends StatefulWidget {
   }) : super(key: key);
   final int count;
   final int selectIndex;
-  final double pageSize;
+  final Size pageSize;
+  final Size activitePageSize;
   final Color color;
   final Color activiteColor;
   final BoxShape shape;
@@ -35,20 +37,21 @@ class IDKitPageControlState extends State<IDKitPageControl> {
   void initState() {
     super.initState();
     _selectIndex = widget.selectIndex ?? 0;
-    _pageSize = widget.pageSize ?? 8;
     _interval = widget.interval ?? 5;
     _width = _pageSize * widget.count + _interval * (widget.count - 1);
     _globalKeyList = List.generate(widget.count, (index) => GlobalKey());
     _list = List.generate(
-        widget.count,
-        (index) => PageItem(
-              key: _globalKeyList[index],
-              state: index == _selectIndex,
-              color: widget.color,
-              activeColor: widget.activiteColor,
-              shape: widget.shape,
-              size: _pageSize,
-            ));
+      widget.count,
+      (index) => PageItem(
+        key: _globalKeyList[index],
+        state: index == _selectIndex,
+        color: widget.color,
+        activeColor: widget.activiteColor,
+        shape: widget.shape,
+        size: widget.pageSize,
+        activeSize: widget.activitePageSize,
+      ),
+    );
     _globalKey = _globalKeyList[_selectIndex];
   }
 
@@ -79,10 +82,12 @@ class PageItem extends StatefulWidget {
     this.activeColor,
     this.shape,
     this.size,
+    this.activeSize,
   }) : super(key: key);
   final bool state;
   final Color color;
-  final double size;
+  final Size size;
+  final Size activeSize;
   final Color activeColor;
   final BoxShape shape;
 
@@ -92,25 +97,29 @@ class PageItem extends StatefulWidget {
 
 class _PageItemState extends State<PageItem> {
   Color _color;
+  Size _size;
   BoxShape _boxShape;
-  double _size;
+  Size _defSize;
+  Size _defActiviteSize;
   Color _defColor;
   Color _defActiviteColor;
   @override
   void initState() {
     super.initState();
-    _defColor = widget.color ?? Colors.white;
-    _defActiviteColor = widget.activeColor ?? Colors.black;
+    _defColor = widget.color ?? Colors.black;
+    _defActiviteColor = widget.activeColor ?? Colors.white;
     _color = widget.state ? _defActiviteColor : _defColor;
+    _defSize = widget.size ?? Size(8, 8);
+    _defActiviteSize = widget.activeSize ?? Size(8, 8);
+    _size = widget.state ? _defActiviteSize : _defSize;
     _boxShape = widget.shape ?? BoxShape.circle;
-    _size = widget.size ?? 8;
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: _size,
-      height: _size,
+      width: _size.width,
+      height: _size.height,
       decoration: BoxDecoration(
         shape: _boxShape,
         color: _color,
@@ -119,14 +128,20 @@ class _PageItemState extends State<PageItem> {
   }
 
   void selectState() {
-    setState(() {
-      _color = _defActiviteColor;
-    });
+    setState(
+      () {
+        _color = _defActiviteColor;
+        _size = _defActiviteSize;
+      },
+    );
   }
 
   void unSelectState() {
-    setState(() {
-      _color = _defColor;
-    });
+    setState(
+      () {
+        _color = _defColor;
+        _size = _defSize;
+      },
+    );
   }
 }

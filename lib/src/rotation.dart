@@ -16,6 +16,7 @@ class IDKitRotation extends StatefulWidget {
     this.pageControlAligment,
     this.pageControlEdgeInsets,
     this.pageControlSize,
+    this.pageControlActiveSize,
     this.pageControlColor,
     this.pageControlActiveColor,
     this.pageControlShape,
@@ -28,7 +29,8 @@ class IDKitRotation extends StatefulWidget {
   final bool pageControlState;
   final Axis rotationDirection;
   final Widget placeholderChild;
-  final double pageControlSize;
+  final Size pageControlSize;
+  final Size pageControlActiveSize;
   final Color pageControlColor;
   final Color pageControlActiveColor;
   final BoxShape pageControlShape;
@@ -194,8 +196,11 @@ class _IDKitRotationState extends State<IDKitRotation> {
         child: IDKitPageControl(
           key: _globalKey,
           count: list.length - 2,
-          pageSize: widget.pageControlSize,
           shape: widget.pageControlShape,
+          activiteColor: widget.pageControlActiveColor,
+          color: widget.pageControlColor,
+          activitePageSize: widget.pageControlActiveSize,
+          pageSize: widget.pageControlSize,
         ),
       ),
     );
