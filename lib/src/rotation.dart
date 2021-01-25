@@ -68,7 +68,9 @@ class _IDKitRotationState extends State<IDKitRotation> {
     _placeholderChild = widget.placeholderChild ?? Container();
     _animationTime = widget.animationTime ?? 500;
     _curve = widget.rotationCurve ?? Curves.ease;
-    _baseOffset = _axis == Axis.horizontal ? _width : widget.height;
+    _baseOffset = _axis == Axis.horizontal
+        ? _width.roundToDouble()
+        : widget.height.roundToDouble();
     _scrollController = ScrollController(initialScrollOffset: _baseOffset);
     _total = 0;
     _pageControlState = widget.pageControlState ?? true;
