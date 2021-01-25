@@ -28,15 +28,9 @@ class FPage extends StatelessWidget {
           child: IDKitRotation(
             height: 120,
             width: 200,
-            pageControlState: true,
-            rotationDirection: Axis.horizontal,
-            pageControlShape: BoxShape.circle,
-            pageControlEdgeInsets: PageControlEdgeInsets.only(bottom: 20),
+            pageControlState: false,
+            rotationDirection: Axis.vertical,
             future: Future.value(["11", "22", "33", "44", "55"]),
-            placeholderChild: Container(
-              alignment: Alignment.center,
-              child: Text("我是默认"),
-            ),
             buildItem: (context, index, data) {
               return Container(
                 height: 30,
