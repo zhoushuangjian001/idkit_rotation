@@ -99,19 +99,11 @@ class _PageItemState extends State<PageItem> {
   Color _color;
   Size _size;
   BoxShape _boxShape;
-  Size _defSize;
-  Size _defActiviteSize;
-  Color _defColor;
-  Color _defActiviteColor;
   @override
   void initState() {
     super.initState();
-    _defColor = widget.color ?? Colors.black;
-    _defActiviteColor = widget.activeColor ?? Colors.white;
-    _color = widget.state ? _defActiviteColor : _defColor;
-    _defSize = widget.size ?? Size(8, 8);
-    _defActiviteSize = widget.activeSize ?? Size(8, 8);
-    _size = widget.state ? _defActiviteSize : _defSize;
+    _color = widget.state ? widget.activeColor : widget.color;
+    _size = widget.state ? widget.activeSize : widget.size;
     _boxShape = widget.shape ?? BoxShape.circle;
   }
 
@@ -130,8 +122,8 @@ class _PageItemState extends State<PageItem> {
   void selectState() {
     setState(
       () {
-        _color = _defActiviteColor;
-        _size = _defActiviteSize;
+        _color = widget.activeColor;
+        _size = widget.activeSize;
       },
     );
   }
@@ -139,8 +131,8 @@ class _PageItemState extends State<PageItem> {
   void unSelectState() {
     setState(
       () {
-        _color = _defColor;
-        _size = _defSize;
+        _color = widget.color;
+        _size = widget.size;
       },
     );
   }
