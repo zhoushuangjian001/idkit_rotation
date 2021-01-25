@@ -32,13 +32,13 @@ class IDKitPageControlState extends State<IDKitPageControl> {
   int _selectIndex;
   double _width;
   double _interval;
-  double _pageSize;
   @override
   void initState() {
     super.initState();
     _selectIndex = widget.selectIndex ?? 0;
     _interval = widget.interval ?? 5;
-    _width = _pageSize * widget.count + _interval * (widget.count - 1);
+    _width = (widget.pageSize.width + _interval) * (widget.count - 1) +
+        widget.activitePageSize.width;
     _globalKeyList = List.generate(widget.count, (index) => GlobalKey());
     _list = List.generate(
       widget.count,
