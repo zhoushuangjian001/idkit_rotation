@@ -145,6 +145,7 @@ class _IDKitRotationState extends State<IDKitRotation> {
     return Container(
       child: ListView.builder(
         physics: NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.zero,
         scrollDirection: _axis,
         controller: _scrollController,
         itemBuilder: (context, index) {
