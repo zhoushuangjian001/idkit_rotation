@@ -94,19 +94,21 @@ class _IDKitRotationState extends State<IDKitRotation> {
   // 计时器的创建
   Timer _timerBuild() {
     return Timer.periodic(Duration(seconds: _rateTime), (timer) {
-      final _scrollOffset = _scrollController.position.pixels;
-      var _index = _scrollOffset ~/ _baseOffset;
-      final _offset = _scrollOffset + _baseOffset;
-      _scrollController
-          .animateTo(_offset,
-              duration: Duration(milliseconds: _animationTime), curve: _curve)
-          .whenComplete(() {
-        // 只会向前走
-        if (_total - 2 == _index) _scrollController.jumpTo(_baseOffset);
-      });
-      // 控制下方小白点
-      if (_globalKey.currentState != null)
-        _globalKey.currentState.selectItem(_index == _total - 2 ? 0 : _index);
+      if (_scrollController.hasClients) {
+        final _scrollOffset = _scrollController.position.pixels;
+        var _index = _scrollOffset ~/ _baseOffset;
+        final _offset = _scrollOffset + _baseOffset;
+        _scrollController
+            .animateTo(_offset,
+                duration: Duration(milliseconds: _animationTime), curve: _curve)
+            .whenComplete(() {
+          // 只会向前走
+          if (_total - 2 == _index) _scrollController.jumpTo(_baseOffset);
+        });
+        // 控制下方小白点
+        if (_globalKey.currentState != null)
+          _globalKey.currentState.selectItem(_index == _total - 2 ? 0 : _index);
+      }
     });
   }
 
